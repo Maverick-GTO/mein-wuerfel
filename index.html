@@ -3,41 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>80s Dice Final Fix</title>
+    <title>80s Dice</title>
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Würfel">
+    <meta name="apple-mobile-web-app-title" content="Würfel">
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Würfel%22,%22short_name%22:%22Würfel%22,%22start_url%22:%22index.html%22,%22display%22:%22standalone%22,%22background_color%22:%22#000000%22,%22theme_color%22:%22#000000%22}">
+
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        
-        .container { width: 150px; height: 150px; perspective: 1000px; margin-bottom: 80px; }
-        
-        #dice { 
-            width: 100%; height: 100%; position: relative; 
-            transform-style: preserve-3d; 
-            transform: rotateX(-20deg) rotateY(20deg);
-        }
-
-        .side {
-            position: absolute; width: 150px; height: 150px; 
-            background: #ffffff; border: 5px solid #00ffff;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 80px; font-weight: bold; color: #000;
-            box-shadow: 0 0 15px #00ffff; border-radius: 10px;
-            backface-visibility: visible;
-        }
-
-        /* Würfel-Geometrie Definition */
-        .sFront  { transform: rotateY(0deg) translateZ(75px); }
-        .sBack   { transform: rotateY(180deg) translateZ(75px); }
-        .sRight  { transform: rotateY(90deg) translateZ(75px); }
-        .sLeft   { transform: rotateY(-90deg) translateZ(75px); }
-        .sTop    { transform: rotateX(90deg) translateZ(75px); }
-        .sBottom { transform: rotateX(-90deg) translateZ(75px); }
-
-        button {
-            padding: 25px 50px; font-size: 30px; background: #ff00ff;
-            color: white; border: 4px solid #00ffff; border-radius: 15px;
-            box-shadow: 0 0 20px #ff00ff; font-weight: bold; cursor: pointer;
-            text-transform: uppercase;
-        }
+        /* Dein bisheriger CSS Code */
     </style>
 </head>
 <body>
@@ -116,3 +95,4 @@
 </script>
 </body>
 </html>
+
