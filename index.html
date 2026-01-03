@@ -101,16 +101,50 @@
 <button onclick="roll()">GO</button>
 
 <script>
-    // 1. Service Worker Registrierung (Ermöglicht "App installieren")
-    if ('serviceWorker' in navigator) {
-        const swCode = 'self.addEventListener("fetch", (event) => {});';
-        const blob = new Blob([swCode], {type: 'text/javascript'});
-        const url = URL.createObjectURL(blob);
-        navigator.serviceWorker.register(url);
-    }
-
-    // 2. Sound-Funktion
+    // Sound-Funktion
     function playBeep() {
         try {
             const context = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = context
+            const osc = context.createOscillator();
+            const gain = context.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(150, context.currentTime);
+            gain.gain.setValueAtTime(0.1, context.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, context.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(context.destination);
+            osc.start();
+            osc.stop(context.currentTime + 0.1);
+        } catch(e) {}
+    }
+
+    // Würfel-Logik
+    function roll() {
+        const d = document.getElementById('dice');
+        const result = Math.floor(Math.random() * 6);
+        const targets = [
+            {x: 0, y: 0}, {x: 0, y: 180}, {x: 0, y: -90}, {x: 0, y: 90}, {x: -90, y: 0}, {x: 90, y: 0}
+        ];
+        const target = targets[result];
+        const finalX = (Math.floor(Math.random() * 3) + 4) * 360 + target.x;
+        const finalY = (Math.floor(Math.random() * 3) + 4) * 360 + target.y;
+        
+        d.style.transition = "transform 1.5s cubic-bezier(0.15, 0, 0.15, 1)";
+        d.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg)`;
+
+        setTimeout(() => {
+            playBeep();
+            setTimeout(() => {
+                d.style.transition = "none";
+                d.style.transform = `rotateX(${target.x}deg) rotateY(${target.y}deg)`;
+            }, 50);
+        }, 1450); 
+    }
+
+    // Service Worker Registrierung (Ermöglicht "App installieren")
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+</body>
+</html>
